@@ -9,5 +9,5 @@ router.post(
   validateRequest(AcademicSemesterZodValidation.create),
   AcademicSemesterController.insertIntoDB
 );
-
+router.get('/all-semester', AcademicSemesterController.getAllFromDB);
 export const AcademicSemesterRoutes = router;
