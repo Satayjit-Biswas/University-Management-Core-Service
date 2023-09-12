@@ -9,5 +9,10 @@ router.post(
   validateRequest(AcademicSemesterZodValidation.create),
   AcademicSemesterController.insertIntoDB
 );
+
 router.get('/all-semester', AcademicSemesterController.getAllFromDB);
+router.get(
+  '/single-semester/:id',
+  AcademicSemesterController.getSingleSemester
+);
 export const AcademicSemesterRoutes = router;

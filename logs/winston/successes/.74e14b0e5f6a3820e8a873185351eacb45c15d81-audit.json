@@ -29,6 +29,16 @@
             "date": 1694516455992,
             "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-12-09-17-success.log",
             "hash": "a0629a1b0b322a529042d54a06d317e9691f99de85d8262822ca305eb253d90e"
+        },
+        {
+            "date": 1694522574900,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-12-09-18-success.log",
+            "hash": "1fe52dbfe8be634de2d94d626dcc354fa849d1ea9a4c734a285aa23c96f52fc6"
+        },
+        {
+            "date": 1694523632990,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-12-09-19-success.log",
+            "hash": "23c62b9e121ac36fd061d1c4cea927eea91ae63178c58e39b6edca368f9592a0"
         }
     ],
     "hashType": "sha256"
