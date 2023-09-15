@@ -74,6 +74,16 @@
             "date": 1694773945407,
             "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\errors\\phu-2023-15-09-16-error.log",
             "hash": "c2e188fbf4b9b02b0e1318324ab6209324c0ce835d77a3e115ea29752deef4a8"
+        },
+        {
+            "date": 1694776985683,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\errors\\phu-2023-15-09-17-error.log",
+            "hash": "ee08201a7dd3b02ef56d14d6fd924faa02e85f6c8a7d7e5af5083cc9e478490b"
+        },
+        {
+            "date": 1694779271626,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\errors\\phu-2023-15-09-18-error.log",
+            "hash": "9ac70c62fd405c9ee98f4c9608eedbb7fa71dac737617a420e46373bec1b4930"
         }
     ],
     "hashType": "sha256"
