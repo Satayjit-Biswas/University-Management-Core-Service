@@ -5,11 +5,11 @@ import { FacultyValidation } from './faculty.validation';
 const router = express.Router();
 
 router.post(
-  '/',
+  '/create-faculty',
   validateRequest(FacultyValidation.create),
   FacultyController.insertIntoDB
 );
 
-router.get('/all-faculty', FacultyController.getAllFromDB);
-router.get('/single-faculty/:id', FacultyController.getSingleFaculty);
+router.get('/', FacultyController.getAllFromDB);
+router.get('/:id', FacultyController.getSingleFaculty);
 export const facultyRoutes = router;

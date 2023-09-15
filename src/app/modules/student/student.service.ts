@@ -11,9 +11,9 @@ import {
 } from './student.contants';
 import { IStudentFilterRequest } from './student.interface';
 
-const insertIntoDB = async (data: Student): Promise<Student> => {
+const insertIntoDB = async (studentData: Student): Promise<Student> => {
   const result = await prisma.student.create({
-    data,
+    data: studentData,
     include: {
       academicFaculty: true,
       academicDepartment: true,
@@ -110,8 +110,40 @@ const getByIdFromDB = async (id: string): Promise<Student | null> => {
   return result;
 };
 
+const updateIntoDB = async (
+  id: string,
+  payload: Partial<Student>
+): Promise<Student> => {
+  const result = await prisma.student.update({
+    where: {
+      id,
+    },
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,  
+      academicSemester: true,
+    },
+    data: payload,
+  });
+
+  return result;
+};
+
+const deleteFromDB = async (id: string): Promise<Student> => {
+  const result = await prisma.student.delete({
+    where: { id },
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,
+      academicSemester: true,
+    },
+  });
+  return result;
+};
 export const StudentService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
+  updateIntoDB,
+  deleteFromDB,
 };

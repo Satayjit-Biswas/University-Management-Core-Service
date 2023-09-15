@@ -5,11 +5,11 @@ import { AcademicFacultyZodValidation } from './academicFaculty.validation';
 const router = express.Router();
 
 router.post(
-  '/',
+  '/create-academicFaculty',
   validateRequest(AcademicFacultyZodValidation.create),
   AcademicFacultyController.insertIntoDB
 );
 
-router.get('/all-faculty', AcademicFacultyController.getAllFromDB);
-router.get('/single-faculty/:id', AcademicFacultyController.getSingleFromDB);
+router.get('/', AcademicFacultyController.getAllFromDB);
+router.get('/:id', AcademicFacultyController.getSingleFromDB);
 export const AcademicFacultyRoutes = router;

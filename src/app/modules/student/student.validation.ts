@@ -58,7 +58,7 @@ const update = z.object({
   }),
 });
 
-export const StudentValidation = {
+export const StudentZodValidation = {
   create,
   update,
 };

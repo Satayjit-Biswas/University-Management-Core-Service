@@ -71,7 +71,7 @@ model Student {
   email String
   contactNo String
   gender String
-  bloodgroup String
+  bloodGroup String
   createAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -90,14 +90,16 @@ model Student {
 
 model Faculty {
   id String @id @default(uuid())
-  facultyID String
+  facultyId String
+  firstName String
   lastName String
   middleName String
-  ProFileImage String
+  profileImage String
   email String
-  contactNo Int
+  contactNo String
   gender String
-  bloodgroup String
+  bloodGroup String
+  designation  String
   createAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
