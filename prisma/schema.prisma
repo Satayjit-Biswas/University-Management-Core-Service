@@ -148,8 +148,8 @@ model Course {
   createAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Prerequisite CourseToPrerequisite[] @relation("CourseToPrerequisite")
-  PrerequisiteFor CourseToPrerequisite[] @relation("PrerequisiteToCourse")
+  preRequisite CourseToPrerequisite[] @relation("CourseToPrerequisite")
+  preRequisiteFor CourseToPrerequisite[] @relation("PrerequisiteToCourse")
 
   @@map("courses")
 }

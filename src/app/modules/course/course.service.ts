@@ -3,18 +3,22 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import { prisma } from '../../../shared/prisma';
 import { courseSearchableFields } from './course.contants';
-import { ICourseFilterRequest } from './course.interface';
+import { ICourseCreateData, ICourseFilterRequest } from './course.interface';
 
-const insertIntoDB = async (data: any): Promise<any> => {
+const insertIntoDB = async (data: ICourseCreateData): Promise<any> => {
   const { preRequisiteCourses, ...courseData } = data;
 
   const newCourse = await prisma.$transaction(async CourseClient => {
     const result = await CourseClient.course.create({
       data: courseData,
     });
-
+    if (!result) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to create course');
+    }
     if (preRequisiteCourses && preRequisiteCourses.length > 0) {
       for (let i = 0; i < preRequisiteCourses.length; i++) {
         const createpreRequisite =
@@ -27,9 +31,31 @@ const insertIntoDB = async (data: any): Promise<any> => {
         console.log(createpreRequisite);
       }
     }
+    return result;
   });
 
-  return newCourse;
+  if (newCourse) {
+    const responseData = await prisma.course.findUnique({
+      where: {
+        id: newCourse.id,
+      },
+      include: {
+        preRequisite: {
+          include: {
+            prerequisite: true,
+          },
+        },
+        preRequisiteFor: {
+          include: {
+            course: true,
+          },
+        },
+      },
+    });
+
+    return responseData;
+  }
+  throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to create course');
 };
 
 const getAllFromDB = async (
