@@ -112,6 +112,18 @@ const getAllFromDB = async (
     andConditions.length > 0 ? { AND: andConditions } : {};
 
   const result = await prisma.course.findMany({
+    include: {
+      preRequisite: {
+        include: {
+          prerequisite: true,
+        },
+      },
+      preRequisiteFor: {
+        include: {
+          course: true,
+        },
+      },
+    },
     where: whereConditions,
     skip,
     take: limit,
@@ -140,6 +152,18 @@ const getByIdFromDB = async (id: string): Promise<Course | null> => {
   const result = await prisma.course.findUnique({
     where: {
       id,
+    },
+    include: {
+      preRequisite: {
+        include: {
+          prerequisite: true,
+        },
+      },
+      preRequisiteFor: {
+        include: {
+          course: true,
+        },
+      },
     },
   });
   return result;
@@ -249,8 +273,23 @@ const updateIntoDB = async (
 };
 
 const deleteFromDB = async (id: string): Promise<Course> => {
+  await prisma.courseToPrerequisite.deleteMany({
+    where: {
+      OR: [
+        {
+          courseld: id,
+        },
+        {
+          prerequisiteld: id,
+        },
+      ],
+    },
+  });
+
   const result = await prisma.course.delete({
-    where: { id },
+    where: {
+      id,
+    },
   });
   return result;
 };
