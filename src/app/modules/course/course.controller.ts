@@ -70,7 +70,7 @@ const assignFaculies = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: ' Assign Course Faculies successfully',
+    message: ' Assign Faculies successfully',
     data: result,
   });
 });
@@ -82,7 +82,7 @@ const removeFaculties = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: ' Remove Course Faculies successfully',
+    message: ' Remove  Faculies successfully',
     data: result,
   });
 });
