@@ -4,5 +4,13 @@
     "source.fixAll.eslint": true,
     "source.fixAll.tslint": true,
     "source.organizeImports": true
-  }
+  },
+  "files.autoSave": "afterDelay",
+  "reactSnippets.settings.prettierEnabled": false,
+  "prettier.bracketSameLine": false,
+  "prettier.tabWidth": 4,
+  "editor.formatOnType": false,
+  "prettier.endOfLine": "lf",
+  "prettier.useTabs": false,
+  "prettier.withNodeModules": false
 }
