@@ -1,10 +1,12 @@
-export const offeredCourseFilterableFields: string[] = ['searchTerm'];
-
-export const offeredCourseSearchableFields: string[] = [
-    'startData',
-    'endDate',
-    'status'
+export const offeredCourseFilterableFields: string[] = [
+    'searchTerm',
+    'id',
+    'semesterRegistrationId',
+    'courseId',
+    'academicDepartmentId'
 ];
+
+export const offeredCourseSearchableFields: string[] = [];
 
 export const offeredCourseRelationalFields: string[] = [
     'courseId',

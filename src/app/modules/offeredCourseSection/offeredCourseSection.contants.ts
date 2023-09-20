@@ -1,6 +1,8 @@
 export const offeredCourseSectionFilterableFields: string[] = [
     'searchTerm',
-    'maxCapacity'
+    'id',
+    'offeredCourseId',
+    'semesterRegistrationId'
 ];
 
 export const offeredCourseSectionSearchableFields: string[] = [
