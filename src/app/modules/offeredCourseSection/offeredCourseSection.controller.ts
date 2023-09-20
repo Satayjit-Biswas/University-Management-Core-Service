@@ -3,7 +3,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
-import { roomFilterableFields } from './offeredCourseSection.contants';
+import { offeredCourseSectionFilterableFields } from './offeredCourseSection.contants';
 import { OfferedCourseSectionService } from './offeredCourseSection.service';
 
 const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
@@ -17,7 +17,7 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-    const filters = pick(req.query, roomFilterableFields);
+    const filters = pick(req.query, offeredCourseSectionFilterableFields);
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
     const result = await OfferedCourseSectionService.getAllFromDB(
         filters,
@@ -26,7 +26,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Rooms fetched successfully',
+        message: 'Offered Course Section fetched successfully',
         meta: result.meta,
         data: result.data
     });
@@ -38,7 +38,7 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Room fetched successfully',
+        message: 'Offered Course Section fetched successfully',
         data: result
     });
 });
@@ -50,7 +50,7 @@ const updateIntoDB = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Room Update successfully',
+        message: 'Offered Course Section Update successfully',
         data: result
     });
 });
@@ -61,7 +61,7 @@ const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Room Delete successfully',
+        message: 'Offered Course Section Delete successfully',
         data: result
     });
 });

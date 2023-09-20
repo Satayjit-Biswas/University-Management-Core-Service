@@ -1,28 +1,28 @@
 import { z } from 'zod';
 
 const create = z.object({
-  body: z.object({
-    roomNumber: z.string({
-      required_error: 'Room Number id is required',
-    }),
-    floor: z.string({
-      required_error: 'Floor name is required',
-    }),
-    buildingId: z.string({
-      required_error: 'buildingId is required',
-    }),
-  }),
+    body: z.object({
+        title: z.string({
+            required_error: 'title is required'
+        }),
+        maxCapacity: z.number({
+            required_error: 'maxCapacity is required'
+        }),
+        offeredCoursedId: z.string({
+            required_error: 'offeredCoursedId is required'
+        })
+    })
 });
 
 const update = z.object({
-  body: z.object({
-    roomNumber: z.string().optional(),
-    floor: z.string().optional(),
-    buildingId: z.string().optional(),
-  }),
+    body: z.object({
+        title: z.string().optional(),
+        maxCapacity: z.number().optional(),
+        offeredCoursedId: z.string().optional()
+    })
 });
 
-export const RoomZodValidation = {
-  create,
-  update,
+export const OfferedCourseSectionZodValidation = {
+    create,
+    update
 };

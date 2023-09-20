@@ -1,19 +1,35 @@
-import { OfferedCourseSection, Prisma, Room } from '@prisma/client';
+import { OfferedCourseSection, Prisma } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 
+import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 import { prisma } from '../../../shared/prisma';
 import {
-    roomRelationalFields,
-    roomRelationalFieldsMapper,
-    roomSearchableFields
+    offeredCourseSectionRelationalFields,
+    offeredCourseSectionRelationalFieldsMapper,
+    offeredCourseSectionSearchableFields
 } from './offeredCourseSection.contants';
-import { IRoomFilterRequest } from './offeredCourseSection.interface';
+import { IOfferedCourseSectionFilterRequest } from './offeredCourseSection.interface';
 
 const insertIntoDB = async (
     offeredCourseSectionData: OfferedCourseSection
 ): Promise<OfferedCourseSection> => {
+    const isExistOfferedCourse = await prisma.offeredCourse.findFirst({
+        where: {
+            id: offeredCourseSectionData.offeredCoursedId
+        }
+    });
+    if (!isExistOfferedCourse) {
+        throw new ApiError(
+            httpStatus.BAD_REQUEST,
+            'Offer Course dose not Exits'
+        );
+    }
+
+    offeredCourseSectionData.semesterRegistrationId =
+        isExistOfferedCourse.SemesterRegistrationId;
     const result = await prisma.offeredCourseSection.create({
         data: offeredCourseSectionData,
         include: {
@@ -25,9 +41,9 @@ const insertIntoDB = async (
 };
 
 const getAllFromDB = async (
-    filters: IRoomFilterRequest,
+    filters: IOfferedCourseSectionFilterRequest,
     options: IPaginationOptions
-): Promise<IGenericResponse<Room[]>> => {
+): Promise<IGenericResponse<OfferedCourseSection[]>> => {
     const { limit, page, skip } =
         paginationHelpers.calculatePagination(options);
     const { searchTerm, ...filterData } = filters;
@@ -36,7 +52,7 @@ const getAllFromDB = async (
 
     if (searchTerm) {
         andConditions.push({
-            OR: roomSearchableFields.map(field => ({
+            OR: offeredCourseSectionSearchableFields.map(field => ({
                 [field]: {
                     contains: searchTerm,
                     mode: 'insensitive'
@@ -48,9 +64,9 @@ const getAllFromDB = async (
     if (Object.keys(filterData).length > 0) {
         andConditions.push({
             AND: Object.keys(filterData).map(key => {
-                if (roomRelationalFields.includes(key)) {
+                if (offeredCourseSectionRelationalFields.includes(key)) {
                     return {
-                        [roomRelationalFieldsMapper[key]]: {
+                        [offeredCourseSectionRelationalFieldsMapper[key]]: {
                             id: (filterData as any)[key]
                         }
                     };
@@ -65,12 +81,13 @@ const getAllFromDB = async (
         });
     }
 
-    const whereConditions: Prisma.RoomWhereInput =
+    const whereConditions: Prisma.OfferedCourseSectionWhereInput =
         andConditions.length > 0 ? { AND: andConditions } : {};
 
-    const result = await prisma.room.findMany({
+    const result = await prisma.offeredCourseSection.findMany({
         include: {
-            building: true
+            semesterRegistration: true,
+            offeredCoursed: true
         },
         where: whereConditions,
         skip,
@@ -82,7 +99,7 @@ const getAllFromDB = async (
                       createAt: 'desc'
                   }
     });
-    const total = await prisma.room.count({
+    const total = await prisma.offeredCourseSection.count({
         where: whereConditions
     });
 
@@ -96,13 +113,16 @@ const getAllFromDB = async (
     };
 };
 
-const getByIdFromDB = async (id: string): Promise<Room | null> => {
-    const result = await prisma.room.findUnique({
+const getByIdFromDB = async (
+    id: string
+): Promise<OfferedCourseSection | null> => {
+    const result = await prisma.offeredCourseSection.findUnique({
         where: {
             id
         },
         include: {
-            building: true
+            semesterRegistration: true,
+            offeredCoursed: true
         }
     });
     return result;
@@ -110,14 +130,15 @@ const getByIdFromDB = async (id: string): Promise<Room | null> => {
 
 const updateIntoDB = async (
     id: string,
-    payload: Partial<Room>
-): Promise<Room> => {
-    const result = await prisma.room.update({
+    payload: Partial<OfferedCourseSection>
+): Promise<OfferedCourseSection> => {
+    const result = await prisma.offeredCourseSection.update({
         where: {
             id
         },
         include: {
-            building: true
+            semesterRegistration: true,
+            offeredCoursed: true
         },
         data: payload
     });
@@ -125,11 +146,12 @@ const updateIntoDB = async (
     return result;
 };
 
-const deleteFromDB = async (id: string): Promise<Room> => {
-    const result = await prisma.room.delete({
+const deleteFromDB = async (id: string): Promise<OfferedCourseSection> => {
+    const result = await prisma.offeredCourseSection.delete({
         where: { id },
         include: {
-            building: true
+            semesterRegistration: true,
+            offeredCoursed: true
         }
     });
     return result;

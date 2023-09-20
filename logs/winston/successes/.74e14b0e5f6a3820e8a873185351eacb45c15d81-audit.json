@@ -199,6 +199,11 @@
             "date": 1695189619100,
             "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-20-09-12-success.log",
             "hash": "b85baff02cf400cbfe32700c4089bb3a5ced331d9860507591b9155a12a7fa91"
+        },
+        {
+            "date": 1695201333238,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-20-09-15-success.log",
+            "hash": "1b08e6da4fc4aa6c0018242ebeedfdaa7483fb074dcc16098fed1d7b2e6bae5b"
         }
     ],
     "hashType": "sha256"

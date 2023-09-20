@@ -1,14 +1,22 @@
-export const roomFilterableFields: string[] = [
-  'searchTerm',
-  'id',
-  'buildingId',
+export const offeredCourseSectionFilterableFields: string[] = [
+    'searchTerm',
+    'maxCapacity'
 ];
 
-export const roomSearchableFields: string[] = ['title'];
+export const offeredCourseSectionSearchableFields: string[] = [
+    'title',
+    'maxCapacity',
+    'offeredCoursedId',
+    'semesterRegistrationId'
+];
 
-export const roomRelationalFields: string[] = ['buildingId'];
-export const roomRelationalFieldsMapper: {
-  [key: string]: string;
+export const offeredCourseSectionRelationalFields: string[] = [
+    'offeredCoursedId',
+    'semesterRegistrationId'
+];
+export const offeredCourseSectionRelationalFieldsMapper: {
+    [key: string]: string;
 } = {
-  buildingId: 'building',
+    offeredCoursedId: 'offeredCoursed',
+    semesterRegistrationId: 'semesterRegistration'
 };
