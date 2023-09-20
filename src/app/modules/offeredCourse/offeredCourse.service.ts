@@ -1,9 +1,4 @@
-import {
-    OfferedCourse,
-    Prisma,
-    SemesterRegistration,
-    SemesterRegistrationStatus
-} from '@prisma/client';
+import { OfferedCourse, Prisma } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
@@ -13,13 +8,13 @@ import ApiError from '../../../errors/ApiError';
 import { prisma } from '../../../shared/prisma';
 import { asyncForEach } from '../../../shared/utils';
 import {
-    semesterRegistrationRelationalFields,
-    semesterRegistrationRelationalFieldsMapper,
-    semesterRegistrationSearchableFields
+    offeredCourseRelationalFields,
+    offeredCourseRelationalFieldsMapper,
+    offeredCourseSearchableFields
 } from './offeredCourse.contants';
 import {
     ICreateOfferCourse,
-    ISemesterRegistrationFilterRequest
+    IOfferedCourseFilterRequest
 } from './offeredCourse.interface';
 
 const insertIntoDB = async (
@@ -57,9 +52,9 @@ const insertIntoDB = async (
 };
 
 const getAllFromDB = async (
-    filters: ISemesterRegistrationFilterRequest,
+    filters: IOfferedCourseFilterRequest,
     options: IPaginationOptions
-): Promise<IGenericResponse<SemesterRegistration[]>> => {
+): Promise<IGenericResponse<OfferedCourse[]>> => {
     const { limit, page, skip } =
         paginationHelpers.calculatePagination(options);
     const { searchTerm, ...filterData } = filters;
@@ -68,7 +63,7 @@ const getAllFromDB = async (
 
     if (searchTerm) {
         andConditions.push({
-            OR: semesterRegistrationSearchableFields.map(field => ({
+            OR: offeredCourseSearchableFields.map(field => ({
                 [field]: {
                     contains: searchTerm,
                     mode: 'insensitive'
@@ -80,9 +75,9 @@ const getAllFromDB = async (
     if (Object.keys(filterData).length > 0) {
         andConditions.push({
             AND: Object.keys(filterData).map(key => {
-                if (semesterRegistrationRelationalFields.includes(key)) {
+                if (offeredCourseRelationalFields.includes(key)) {
                     return {
-                        [semesterRegistrationRelationalFieldsMapper[key]]: {
+                        [offeredCourseRelationalFieldsMapper[key]]: {
                             id: (filterData as any)[key]
                         }
                     };
@@ -97,16 +92,18 @@ const getAllFromDB = async (
         });
     }
 
-    const whereConditions: Prisma.SemesterRegistrationWhereInput =
+    const whereConditions: Prisma.OfferedCourseWhereInput =
         andConditions.length > 0
             ? {
                   AND: andConditions
               }
             : {};
 
-    const result = await prisma.semesterRegistration.findMany({
+    const result = await prisma.offeredCourse.findMany({
         include: {
-            academicSemester: true
+            course: true,
+            academicDepartment: true,
+            semesterRegistration: true
         },
         where: whereConditions,
         skip,
@@ -120,7 +117,7 @@ const getAllFromDB = async (
                       createAt: 'desc'
                   }
     });
-    const total = await prisma.semesterRegistration.count({
+    const total = await prisma.offeredCourse.count({
         where: whereConditions
     });
 
@@ -134,15 +131,15 @@ const getAllFromDB = async (
     };
 };
 
-const getByIdFromDB = async (
-    id: string
-): Promise<SemesterRegistration | null> => {
-    const result = await prisma.semesterRegistration.findUnique({
+const getByIdFromDB = async (id: string): Promise<OfferedCourse | null> => {
+    const result = await prisma.offeredCourse.findUnique({
         where: {
             id
         },
         include: {
-            academicSemester: true
+            course: true,
+            academicDepartment: true,
+            semesterRegistration: true
         }
     });
     return result;
@@ -150,9 +147,9 @@ const getByIdFromDB = async (
 
 const updateIntoDB = async (
     id: string,
-    payload: Partial<SemesterRegistration>
-): Promise<SemesterRegistration> => {
-    const isExist = await prisma.semesterRegistration.findUnique({
+    payload: Partial<OfferedCourse>
+): Promise<OfferedCourse> => {
+    const isExist = await prisma.offeredCourse.findUnique({
         where: {
             id
         }
@@ -161,43 +158,29 @@ const updateIntoDB = async (
         throw new ApiError(httpStatus.BAD_REQUEST, 'Data not Found');
     }
 
-    // UPCOMING > ONGOING > ENDED
-
-    if (
-        payload.status &&
-        isExist.status === SemesterRegistrationStatus.UPCOMING &&
-        payload.status !== SemesterRegistrationStatus.ONGOING
-    ) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Upcoming to Ongoing ');
-    }
-
-    if (
-        payload.status &&
-        isExist.status === SemesterRegistrationStatus.ONGOING &&
-        payload.status !== SemesterRegistrationStatus.ENDED
-    ) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'ONGOING to ENDED');
-    }
-
-    const result = await prisma.semesterRegistration.update({
+    const result = await prisma.offeredCourse.update({
         where: {
             id
         },
         include: {
-            academicSemester: true
+            course: true,
+            academicDepartment: true,
+            semesterRegistration: true
         },
         data: payload
     });
     return result;
 };
 
-const deleteFromDB = async (id: string): Promise<SemesterRegistration> => {
-    const result = await prisma.semesterRegistration.delete({
+const deleteFromDB = async (id: string): Promise<OfferedCourse> => {
+    const result = await prisma.offeredCourse.delete({
         where: {
             id
         },
         include: {
-            academicSemester: true
+            course: true,
+            academicDepartment: true,
+            semesterRegistration: true
         }
     });
     return result;

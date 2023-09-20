@@ -1,8 +1,8 @@
-export type ISemesterRegistrationFilterRequest = {
+export type IOfferedCourseFilterRequest = {
     searchTerm?: string | undefined;
-    academicSemesterId?: string | undefined;
-    startData?: number | undefined;
-    status?: 'UPCOMING' | 'ONGOING' | 'ENDED';
+    courseId?: string | undefined;
+    academicDepartmentId?: string | undefined;
+    SemesterRegistrationId?: string | undefined;
 };
 
 export type ICreateOfferCourse = {

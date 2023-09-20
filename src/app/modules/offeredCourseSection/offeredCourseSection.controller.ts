@@ -3,29 +3,30 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
-import { offeredCourseFilterableFields } from './offeredCourse.contants';
-import { OfferedCourseService } from './offeredCourse.service';
+import { roomFilterableFields } from './offeredCourseSection.contants';
+import { OfferedCourseSectionService } from './offeredCourseSection.service';
 
 const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
-    console.log(req.body);
-
-    const result = await OfferedCourseService.insertIntoDB(req.body);
+    const result = await OfferedCourseSectionService.insertIntoDB(req.body);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Offered Course created successfully',
+        message: 'Offered Course Section created successfully',
         data: result
     });
 });
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-    const filters = pick(req.query, offeredCourseFilterableFields);
+    const filters = pick(req.query, roomFilterableFields);
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
-    const result = await OfferedCourseService.getAllFromDB(filters, options);
+    const result = await OfferedCourseSectionService.getAllFromDB(
+        filters,
+        options
+    );
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Offered Course fetched successfully',
+        message: 'Rooms fetched successfully',
         meta: result.meta,
         data: result.data
     });
@@ -33,11 +34,11 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
 
 const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const result = await OfferedCourseService.getByIdFromDB(id);
+    const result = await OfferedCourseSectionService.getByIdFromDB(id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Offered Course fetched successfully',
+        message: 'Room fetched successfully',
         data: result
     });
 });
@@ -45,26 +46,26 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
 const updateIntoDB = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
     const payload = req.body;
-    const result = await OfferedCourseService.updateIntoDB(id, payload);
+    const result = await OfferedCourseSectionService.updateIntoDB(id, payload);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Offered Course Update successfully',
+        message: 'Room Update successfully',
         data: result
     });
 });
 
 const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const result = await OfferedCourseService.deleteFromDB(id);
+    const result = await OfferedCourseSectionService.deleteFromDB(id);
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Offered Course Delete successfully',
+        message: 'Room Delete successfully',
         data: result
     });
 });
-export const OfferedCourseController = {
+export const OfferedCourseSectionController = {
     insertIntoDB,
     getAllFromDB,
     getByIdFromDB,
