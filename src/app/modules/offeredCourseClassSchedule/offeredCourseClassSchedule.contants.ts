@@ -3,13 +3,12 @@ export const offeredCourseClassScheduleFilterableFields: string[] = [
     'offeredCourseSectionId',
     'semesterRegistrationId',
     'roomId',
+    'dayOfWeek',
     'facultyId'
 ];
 
 export const offeredCourseClassScheduleSearchableFields: string[] = [
-    'dayOfWeek',
-    'startTime',
-    'endTime'
+    'dayOfWeek'
 ];
 
 export const offeredCourseClassScheduleRelationalFields: string[] = [

@@ -5,8 +5,6 @@ import { prisma } from '../../../shared/prisma';
 import { hasTimeConflict } from '../../../shared/utils';
 
 const checkRoomAvailable = async (data: OfferedCourseClassSchedule) => {
-    console.log('hi');
-
     const alreadyBookedRoomOnDay =
         await prisma.offeredCourseClassSchedule.findMany({
             where: {
@@ -28,11 +26,6 @@ const checkRoomAvailable = async (data: OfferedCourseClassSchedule) => {
         endTime: data.endTime,
         dayOfWeek: data.dayOfWeek
     };
-
-    console.log(
-        'hasTimeConflict(existingSlots, newSlot)',
-        hasTimeConflict(existingSlots, newSlot)
-    );
 
     if (hasTimeConflict(existingSlots, newSlot)) {
         throw new ApiError(httpStatus.CONFLICT, 'Room is already booked!');

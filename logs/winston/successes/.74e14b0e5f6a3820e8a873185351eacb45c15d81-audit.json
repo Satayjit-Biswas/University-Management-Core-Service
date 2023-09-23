@@ -224,6 +224,31 @@
             "date": 1695295615273,
             "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-21-09-17-success.log",
             "hash": "dca606c1de23df2c54d417ac5a688bf0fa1bdee7e71f91874b254605de3ba091"
+        },
+        {
+            "date": 1695394781911,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-22-09-20-success.log",
+            "hash": "ef97e6d07b89bd1b456d47355d08e983ab9cb0ddc8e85efc54aa306dd0e095f3"
+        },
+        {
+            "date": 1695395818700,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-22-09-21-success.log",
+            "hash": "16b2a26ac2a2bcaee1324ab0762906261dfa3d95d3500deb1a001155cc31e228"
+        },
+        {
+            "date": 1695444303530,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-23-09-10-success.log",
+            "hash": "8b013bd7ff861401ba9cc7aa0398e37fdc331808aa5edc095bbf61939629dff2"
+        },
+        {
+            "date": 1695445279112,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-23-09-11-success.log",
+            "hash": "42d81f7056b7bb46df4238de4f494cab92c1cbb973cda86fdaa4d7176e77cd40"
+        },
+        {
+            "date": 1695448808107,
+            "name": "C:\\Users\\satay\\Desktop\\University-Management-Core-Service\\logs\\winston\\successes\\phu-2023-23-09-12-success.log",
+            "hash": "6b775a261e24b627edc5a1224f41997e2c5f1fa77390c9e84baadc47eb358c6b"
         }
     ],
     "hashType": "sha256"

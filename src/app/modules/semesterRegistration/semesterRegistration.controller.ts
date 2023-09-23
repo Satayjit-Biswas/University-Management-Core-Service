@@ -65,10 +65,24 @@ const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
         data: result
     });
 });
+
+const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    const result = await SemesterRegistrationService.startMyRegistration(
+        user.userId
+    );
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Student Registration Start successfully',
+        data: result
+    });
+});
 export const SemesterRegistrationController = {
     insertIntoDB,
     getAllFromDB,
     getByIdFromDB,
     updateIntoDB,
-    deleteFromDB
+    deleteFromDB,
+    startMyRegistration
 };
