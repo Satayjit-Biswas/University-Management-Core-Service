@@ -4,3 +4,8 @@ export type ISemesterRegistrationFilterRequest = {
     startData?: number | undefined;
     status?: 'UPCOMING' | 'ONGOING' | 'ENDED';
 };
+
+export type IEnrollCoursePayload = {
+    offeredCourseId: string;
+    offeredCourseSectionId: string;
+};

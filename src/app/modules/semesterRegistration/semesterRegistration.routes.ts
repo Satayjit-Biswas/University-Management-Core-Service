@@ -21,6 +21,15 @@ router.post(
     ),
     SemesterRegistrationController.startMyRegistration
 );
+router.post(
+    '/enroll-into-course',
+    auth(
+        ENUM_USER_ROLE.ADMIN,
+        ENUM_USER_ROLE.SUPER_ADMIN,
+        ENUM_USER_ROLE.STUDENT
+    ),
+    SemesterRegistrationController.enrollIntoCourse
+);
 router.get('/', SemesterRegistrationController.getAllFromDB);
 
 router.get('/:id', SemesterRegistrationController.getByIdFromDB);
