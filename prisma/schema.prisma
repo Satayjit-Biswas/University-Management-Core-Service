@@ -259,7 +259,7 @@ model StudentSemesterRegistrationCourse {
     offeredCourseSectionId String
     offeredCourseSection   OfferedCourseSection @relation(fields: [offeredCourseSectionId], references: [id])
 
-    @@id([semesterRegistrationId, studentId, offeredCourseId, offeredCourseSectionId])
+    @@id([semesterRegistrationId, studentId, offeredCourseId])
     @@map("student_semester_registration_course")
 }
 

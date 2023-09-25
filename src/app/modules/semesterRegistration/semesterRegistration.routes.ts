@@ -28,7 +28,23 @@ router.post(
         ENUM_USER_ROLE.SUPER_ADMIN,
         ENUM_USER_ROLE.STUDENT
     ),
+    validateRequest(SemesterRegistrationZodValidation.enrollOrWithdramCourse),
     SemesterRegistrationController.enrollIntoCourse
+);
+router.post(
+    '/withdrew-from-course',
+    auth(
+        ENUM_USER_ROLE.ADMIN,
+        ENUM_USER_ROLE.SUPER_ADMIN,
+        ENUM_USER_ROLE.STUDENT
+    ),
+    validateRequest(SemesterRegistrationZodValidation.enrollOrWithdramCourse),
+    SemesterRegistrationController.withdrewFromCourse
+);
+router.post(
+    '/confirm-my-registration',
+    auth(ENUM_USER_ROLE.STUDENT),
+    SemesterRegistrationController.confirmMyRegistration
 );
 router.get('/', SemesterRegistrationController.getAllFromDB);
 
